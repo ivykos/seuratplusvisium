@@ -12,17 +12,9 @@ read_h5 <- function(infile){
   ElbowPlot(h5.seurat)
 }
 
-
-#' @export
-get_umap <- function(h5, dims, res){
-  h5 <- FindNeighbors(h5, dims = 1:dims)
-  h5 <- FindClusters(h5, resolution = res)
-  h5 <- RunUMAP(h5, dims = 1:dims)
-  DimPlot(h5, reduction = "umap")
-}
-
 #' @export
 read_tissue_positions <- function(infile){
   positions <- read.csv(infile, header = F)
+  positions <- positions[positions$V2 == 1,]
 }
 
