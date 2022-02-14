@@ -1,8 +1,7 @@
 Package: seuratplusvisium
 Title: Seurat Plus Visium: Visualizing Seurat Cluster Assignments in Visium
 Version: 0.0.0.9000
-Authors@R: 
-    person("Ivy", "Kosater","imk2130@cumc.columbia.edu", role = c("aut", "cre"))
+Authors: Ivy Kosater 
 Description: Given a h5 and tissue positions list from Spaceranger output, this package will utilize Seurat's guided clustering and superimpose cluster assignments on a Visium tissue slide.
 License: MIT + file LICENSE
 Encoding: UTF-8
