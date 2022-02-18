@@ -2,8 +2,8 @@
 #' @import Seurat
 #' @export
 read_h5 <- function(infile){
-  h5 <- Read10X_h5(infile, use.names = TRUE) 
-  h5.seurat <- CreateSeuratObject(counts = h5, project ="A")
+  h5 <- Read10X_h5(infile, project, assay,use.names = TRUE) 
+  h5.seurat <- CreateSeuratObject(counts = h5, project = project, assay = assay)
   h5.seurat <- NormalizeData(h5.seurat)
   h5.seurat <- FindVariableFeatures(h5.seurat, selection.method = "vst", nfeatures = 2000)
   all.genes <- rownames(h5.seurat)
