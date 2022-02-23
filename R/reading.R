@@ -4,7 +4,7 @@
 #' @export
 
 read_h5 <- function(infile){
-  h5 <- Read10X_h5(infile, project, assay,use.names = TRUE) 
+  h5 <- Read10X_h5(infile, project, use.names = TRUE) 
   h5.seurat <- CreateSeuratObject(counts = h5, project = project, assay = assay)
   h5.seurat <- NormalizeData(h5.seurat)
   h5.seurat <- FindVariableFeatures(h5.seurat, selection.method = "vst", nfeatures = 2000)
@@ -30,7 +30,7 @@ get_umap <- function(seuratObj, dimensions, res){
   seuratObj <- RunUMAP(seuratObj, dims = 1:dimensions)
   DimPlot(seuratObj, reduction = "umap")
 }
-#' @export
+
 transfer_clusters <- function(seuratObj, pro, positions){
   write.table(sueratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
@@ -46,6 +46,4 @@ transfer_clusters <- function(seuratObj, pro, positions){
   
   ggplot(pos.ordered, aes(x=pos.ordered$V3, y=pos.ordered$V4, color=as.factor(table$V2))) + 
     geom_point() + theme_linedraw() +ggtitle(as.character(pro))
-  
-  
 }
