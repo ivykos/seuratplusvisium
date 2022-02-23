@@ -16,13 +16,6 @@ read_h5 <- function(infile, proj, a){
 }
 
 #' @export
-read_tissue_positions <- function(infile, visualize=c(TRUE, FALSE)){
-  positions <- read.csv(infile, header = F)
-  positions <- positions[positions$V2 == 1,]
-  if (visualize==TRUE) {plot(positions$V3, positions$V4)}
-}
-
-#' @export
 get_umap <- function(seuratObj, dimensions, res){
   seuratObj <- FindNeighbors(seuratObj, dims = 1:dimensions)
   seuratObj <- FindClusters(seuratObj, resolution = res)
@@ -31,13 +24,17 @@ get_umap <- function(seuratObj, dimensions, res){
   DimPlot(seuratObj, reduction = "umap")
 }
 
-transfer_clusters <- function(seuratObj, pro, positions){
+#' @export
+transfer_clusters <- function(seuratObj, pro, tissue_csv){
   write.table(sueratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
   file.remove("tmp.tsv")
   write.table(combined2@meta.data$orig.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   orig <- read.delim("tmp.tsv", header = FALSE)
   file.remove("tmp.tsv")
+  
+  positions <- read.csv(tissue_csv, header = F)
+  positions <- positions[positions$V2 == 1,]
   
   idents["Origin"] = orig$V2
   table <- idents[idents$Origin == "CAF_A",]
