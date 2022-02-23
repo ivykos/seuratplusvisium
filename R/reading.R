@@ -30,7 +30,7 @@ get_umap <- function(seuratObj, dimensions, res){
   seuratObj <- RunUMAP(seuratObj, dims = 1:dimensions)
   DimPlot(seuratObj, reduction = "umap")
 }
-
+#' @export
 transfer_clusters <- function(seuratObj, pro, positions){
   write.table(sueratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
