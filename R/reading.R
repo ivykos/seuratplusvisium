@@ -3,9 +3,9 @@
 #' @import ggplot2
 #' @export
 
-read_h5 <- function(infile){
+read_h5 <- function(infile, proj, a){
   h5 <- Read10X_h5(infile, project, use.names = TRUE) 
-  h5.seurat <- CreateSeuratObject(counts = h5, project = project, assay = assay)
+  h5.seurat <- CreateSeuratObject(counts = h5, project = proj, assay = a)
   h5.seurat <- NormalizeData(h5.seurat)
   h5.seurat <- FindVariableFeatures(h5.seurat, selection.method = "vst", nfeatures = 2000)
   all.genes <- rownames(h5.seurat)
