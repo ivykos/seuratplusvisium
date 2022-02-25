@@ -4,7 +4,7 @@
 #' @export
 
 read_h5 <- function(h5, proj, a){
-  h5_file <- Read10X_h5(infile, use.names = TRUE) 
+  h5_file <- Read10X_h5(h5, use.names = TRUE) 
   h5.seurat <- CreateSeuratObject(counts = h5_file, project = proj, assay = a)
   h5.seurat <- NormalizeData(h5.seurat)
   h5.seurat <- FindVariableFeatures(h5.seurat, selection.method = "vst", nfeatures = 2000)
