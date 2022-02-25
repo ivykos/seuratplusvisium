@@ -11,8 +11,7 @@ read_h5 <- function(infile, proj, a){
   all.genes <- rownames(h5.seurat)
   h5.seurat <- ScaleData(h5.seurat, features = all.genes)
   h5.seurat <- RunPCA(h5.seurat, features = VariableFeatures(object = h5.seurat))
-  ElbowPlot(h5.seurat)
-  JackStraw(h5.seurat, reduction = "pca")
+ 
 }
 
 #' @export
