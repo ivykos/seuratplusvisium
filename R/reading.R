@@ -28,7 +28,7 @@ transfer_clusters <- function(seuratObj, proj, tissue_csv){
   write.table(seuratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
   file.remove("tmp.tsv")
-  write.table(combined2@meta.data$orig.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
+  write.table(seuratObj@meta.data$orig.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   orig <- read.delim("tmp.tsv", header = FALSE)
   file.remove("tmp.tsv")
   
