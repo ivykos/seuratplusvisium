@@ -3,9 +3,9 @@
 #' @import ggplot2
 #' @export
 
-read_h5 <- function(infile, proj, a){
-  h5 <- Read10X_h5(infile, use.names = TRUE) 
-  h5.seurat <- CreateSeuratObject(counts = h5, project = proj, assay = a)
+read_h5 <- function(h5, proj, a){
+  h5_file <- Read10X_h5(infile, use.names = TRUE) 
+  h5.seurat <- CreateSeuratObject(counts = h5_file, project = proj, assay = a)
   h5.seurat <- NormalizeData(h5.seurat)
   h5.seurat <- FindVariableFeatures(h5.seurat, selection.method = "vst", nfeatures = 2000)
   all.genes <- rownames(h5.seurat)
@@ -24,8 +24,8 @@ get_umap <- function(seuratObj, dimensions, res){
 }
 
 #' @export
-transfer_clusters <- function(seuratObj, pro, tissue_csv){
-  write.table(sueratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
+transfer_clusters <- function(seuratObj, proj, tissue_csv){
+  write.table(seuratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
   file.remove("tmp.tsv")
   write.table(combined2@meta.data$orig.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
@@ -41,5 +41,5 @@ transfer_clusters <- function(seuratObj, pro, tissue_csv){
   pos.ordered <-positions[order(positions$V1),]
   
   ggplot(pos.ordered, aes(x=pos.ordered$V3, y=pos.ordered$V4, color=as.factor(table$V2))) + 
-    geom_point() + theme_linedraw() +ggtitle(as.character(pro))
+    geom_point() + theme_linedraw() +ggtitle(as.character(proj))
 }
