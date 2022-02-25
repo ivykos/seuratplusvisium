@@ -40,6 +40,6 @@ transfer_clusters <- function(seuratObj, proj, tissue_csv){
   cluster.ordered <- table[order(table$V1),]
   pos.ordered <-positions[order(positions$V1),]
   
-  ggplot(pos.ordered, aes(x=pos.ordered$V3, y=pos.ordered$V4, color=as.factor(table$V2))) + 
+  ggplot(pos.ordered, aes(x=pos.ordered$V3, y=pos.ordered$V4, color=as.factor(table$V1))) + 
     geom_point() + theme_linedraw() +ggtitle(as.character(proj))
 }
