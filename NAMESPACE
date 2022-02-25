@@ -2,6 +2,9 @@
 
 export(get_umap)
 export(read_h5)
-export(read_tissue_positions)
+export(transfer_clusters)
+import(RColorBrewer)
 import(Seurat)
+import(ggplot2)
 import(hdf5r)
+import(viridis)
