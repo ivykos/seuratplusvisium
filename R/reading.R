@@ -36,7 +36,7 @@ transfer_clusters <- function(seuratObj, proj, tissue_csv){
   positions <- positions[positions$V2 == 1,]
   
   idents["Origin"] = orig$V2
-  table <- idents[idents$Origin == "CAF_A",]
+  table <- idents[idents$Origin == proj,]
   cluster.ordered <- table[order(table$V1),]
   pos.ordered <-positions[order(positions$V1),]
   
