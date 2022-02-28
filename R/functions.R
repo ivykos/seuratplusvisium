@@ -6,12 +6,6 @@
 
 
 
-#' Reads an h5 file from Space Ranger output. Generated a Seurat object for data normalization, feature selection, scaling, and PCA.
-#' 
-#' @param h5 h5 file
-#' @param proj Project name for Seurat object
-#' @param a Assay
-#' @example SeuratObj <- read_h5("example.h5","my_data","RNA")
 #' @export
 read_h5 <- function(h5, proj, a){
   h5_file <- Read10X_h5(h5, use.names = TRUE) 
@@ -23,16 +17,7 @@ read_h5 <- function(h5, proj, a){
   
 }
 
-#' After reading an h5 file and performing pre-processing, this function will perform UMAP dimensional reduction using Seurat. 
-#' Output from this function will also include a visualization of the Visium slide with each dot colored to correspond to the 
-#' assigned cluster.
-#'
-#' @param sueratObj Seurat object
-#' @param proj Project name for Seurat object
-#' @param dimensions Dimensionality of the dataset. Use Seurat's JackStraw or ElbowPlot function to determine this
-#' @param res Resolution
-#' @param tissue_csv tissue_positions_list.csv file from Space Ranger output
-#' @example transfer_clusters(SeuratObj,"my_data",13,0.5,"tissue_positions_list.csv")
+
 #' @export
 transfer_clusters <- function(seuratObj, proj, dimensions, res, tissue_csv){
   seuratObj <- FindNeighbors(seuratObj, dims = 1:dimensions)
