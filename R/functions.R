@@ -51,7 +51,7 @@ get_expression <- function(seuratObj, feature){
   tmp <- as.matrix(GetAssayData(object = seuratObj, slot = "counts"))
   feature_count <- tmp[feature,]
   rotated <- as.data.frame(t(feature_count))
-  table["Expr"] <- rotated$feature_count
+  tabl["Expr"] <- rotated$feature_count
  
   #Get tissue positions again 
   write.table(seuratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
@@ -65,12 +65,12 @@ get_expression <- function(seuratObj, feature){
   positions <- positions[positions$V2 == 1,]
   
   idents["Origin"] = orig$V2
-  table <- idents[idents$Origin == proj,]
-  cluster.ordered <- table[order(table$V1),]
+  tabl <- idents[idents$Origin == proj,]
+  cluster.ordered <- tabl[order(table$V1),]
   pos.ordered <-positions[order(positions$V1),]
   
   ggplot(pos.ordered, aes(pos.ordered$V3, pos.ordered$V4)) + 
-    geom_point(aes(color = table$Expr), size = 2) + 
+    geom_point(aes(color = tabl$Expr), size = 2) + 
     scale_color_viridis(option = "inferno") + theme_bw()+ ggtitle("APOE4 Gad1")
 }
 
