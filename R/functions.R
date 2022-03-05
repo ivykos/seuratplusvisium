@@ -48,12 +48,6 @@ transfer_clusters <- function(seuratObj, proj, dimensions, res, tissue_csv){
 
 #' @export
 get_expression <- function(seuratObj, feature){
-  tmp <- as.matrix(GetAssayData(object = seuratObj, slot = "counts"))
-  feature_count <- tmp[feature,]
-  rotated <- as.data.frame(t(feature_count))
-  tabl <- data.frame()
-  tabl["Expr"] <- rotated$feature_count
- 
   #Get tissue positions again 
   write.table(seuratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
@@ -66,12 +60,17 @@ get_expression <- function(seuratObj, feature){
   positions <- positions[positions$V2 == 1,]
   
   idents["Origin"] = orig$V2
-  tabl <- idents[idents$Origin == proj,]
+  table <- idents[idents$Origin == proj,]
   cluster.ordered <- tabl[order(table$V1),]
   pos.ordered <-positions[order(positions$V1),]
   
+  tmp <- as.matrix(GetAssayData(object = seuratObj, slot = "counts"))
+  feature_count <- tmp[feature,]
+  rotated <- as.data.frame(t(feature_count))
+  table["Expr"] <- rotated$feature_count
+  
   ggplot(pos.ordered, aes(pos.ordered$V3, pos.ordered$V4)) + 
-    geom_point(aes(color = tabl$Expr), size = 2) + 
+    geom_point(aes(color = table$Expr), size = 2) + 
     scale_color_viridis(option = "inferno") + theme_bw()+ ggtitle("APOE4 Gad1")
 }
 
