@@ -51,7 +51,7 @@ get_expression <- function(seuratObj, feature){
   tmp <- as.matrix(GetAssayData(object = seuratObj, slot = "counts"))
   feature_count <- tmp[feature,]
   rotated <- as.data.frame(t(feature_count))
-  table.c["Expr"] <- rotated$feature_count
+  table["Expr"] <- rotated$feature_count
  
   #Get tissue positions again 
   write.table(seuratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
