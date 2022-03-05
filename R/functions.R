@@ -48,7 +48,7 @@ transfer_clusters <- function(seuratObj, proj, dimensions, res, tissue_csv){
 }
 
 #' @export
-get_expression <- function(seuratObj, feature, tissue_csv){
+get_expression <- function(seuratObj, proj, feature, tissue_csv){
   #Get tissue positions again 
   write.table(seuratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
