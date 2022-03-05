@@ -62,7 +62,7 @@ get_expression <- function(seuratObj, proj, feature, tissue_csv){
   
   idents["Origin"] = orig$V2
   table <- idents[idents$Origin == proj,]
-  cluster.ordered <- tabl[order(table$V1),]
+  cluster.ordered <- table[order(table$V1),]
   pos.ordered <-positions[order(positions$V1),]
   
   tmp <- as.matrix(GetAssayData(object = seuratObj, slot = "counts"))
