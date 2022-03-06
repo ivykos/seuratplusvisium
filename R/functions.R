@@ -73,7 +73,7 @@ get_expression <- function(seuratObj, proj, feature, tissue_csv){
   tmp <- as.matrix(GetAssayData(object = seuratObj, slot = "counts"))
   feature_count <- tmp[feature,]
   rotated <- as.data.frame(t(feature_count))
-  rotated <- as.data.frame(t(feature_count))
+  rotated <- as.data.frame(t(rotated))
   table["Expr"] <- rotated$V1
   
   ggplot(pos.ordered, aes(pos.ordered$V3, pos.ordered$V4)) + 
