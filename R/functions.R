@@ -4,6 +4,7 @@
 #' @import RColorBrewer
 #' @import viridis
 #' @import dplyr
+#' @import patchwork
 
 #' @export
 read_h5 <- function(h5, proj, a){
@@ -22,7 +23,7 @@ transfer_clusters <- function(seuratObj, proj, dimensions, res, tissue_csv){
   seuratObj <- FindClusters(seuratObj, resolution = res)
   
   seuratObj <- RunUMAP(seuratObj, dims = 1:dimensions)
-  
+  plt1 <- DimPlot(seuratObj, reduction="umap")
   #Retrieve the cluster labels and project ID from the Seurat object and put them in tables
   write.table(seuratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
@@ -49,6 +50,11 @@ transfer_clusters <- function(seuratObj, proj, dimensions, res, tissue_csv){
   #Plot it
   ggplot(pos.ordered, aes(x=pos.ordered$V3, y=pos.ordered$V4, color=as.factor(table$V2))) + 
     geom_point() + theme_linedraw() +ggtitle(as.character(proj))
+  
+  plt2 <- ggplot(pos.ordered, aes(x=pos.ordered$V3, y=pos.ordered$V4, color=as.factor(table$V2))) + 
+    geom_point() + theme_linedraw() +ggtitle(as.character(proj))
+  
+  plt1 + plt2
 }
 #' @export
 get_expression <- function(seuratObj, proj, feature, tissue_csv){
