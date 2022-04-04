@@ -50,7 +50,7 @@ transfer_clusters <- function(seuratObj, proj, dimensions, res, tissue_csv){
   #Plot it
   
   plt2 <- ggplot(pos.ordered, aes(x=pos.ordered$V3, y=pos.ordered$V4, color=as.factor(table$V2))) + 
-    geom_point() + theme_linedraw() +ggtitle(as.character(proj)) + xlab("x") + ylab("y") + labs(fill = "Cluster")
+    geom_point() + theme_linedraw() +ggtitle(as.character(proj)) 
   
   plt1
   plt2 
