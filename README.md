@@ -12,3 +12,4 @@ library(devtools)
 devtools::install_github('ivykos/seuratplusvisium')
 library(seuratplusvisium)
 ```
+Note: This package is still in early stages of development. It will be refined and more features will be added over time. 
