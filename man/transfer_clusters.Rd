@@ -4,7 +4,7 @@
 \alias{transfer_clusters}
 \title{Takes Seurat object and does dimensional reduction using UMAP and visualizes the cluster assignments on the Visium tissue sample.}
 \usage{
-transfer_clusters(seuratObj, proj, dimensions, res, tissue_csv, tissue)
+transfer_clusters(seuratObj, proj, dimensions, res, tissue_csv)
 }
 \arguments{
 \item{seuratObj}{Seurat object.}
@@ -16,8 +16,6 @@ transfer_clusters(seuratObj, proj, dimensions, res, tissue_csv, tissue)
 \item{res}{Resolution}
 
 \item{tissue_csv}{"tissue_positions.csv" output from space ranger pipeline}
-
-\item(tissue){OPTIONAL: If Seurat object contains cells from multiple samples, specify the name of the tissue sample you want to visualize.}
 }
 \value{
 Visualization of cluster labels on tissue sample
@@ -26,5 +24,5 @@ Visualization of cluster labels on tissue sample
 Takes Seurat object and does dimensional reduction using UMAP and visualizes the cluster assignments on the Visium tissue sample.
 }
 \examples{
-transfer_clusters(Obj,"my_project",13,0.5,"tissue_positions.csv","tissue_label")
+transfer_clusters(Obj,"my_project",13,0.5,"tissue_positions.csv")
 }
