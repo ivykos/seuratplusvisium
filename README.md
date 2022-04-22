@@ -1,6 +1,6 @@
 # seuratplusvisium
 
-Seuratplusvisium is a set of R functions built on top of Seurat and designed to visualize cell cluster labels from Seurat's guided clustering workflow on a Visium
+Seuratplusvisium is a set of R functions designed to visualize cell cluster labels from Seurat's guided clustering workflow on a Visium
 tissue slide.
 
 Alongside this functionality, it can also visualize expression of any gene spatially.
