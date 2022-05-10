@@ -107,7 +107,7 @@ get_expression <- function(seuratObj, proj, feature, tissue_csv){
 
   ggplot(pos.ordered, aes(pos.ordered$V3, pos.ordered$V4)) +
     geom_point(aes(color = table$Expr), size = 2) +
-    scale_color_viridis(option = "inferno") + theme_bw() +ggtitle("MBP")
+    scale_color_viridis(option = "inferno") + theme_bw() 
 }
 
 
