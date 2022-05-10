@@ -14,7 +14,7 @@ transfer_clusters_merged <- function(seuratObj, data_set, tissue_csv){
   data.subset <-  subset(x=seuratObj, subset = dataset==data_set)
 
   #Retrieve the cluster labels and project ID from the Seurat object and put them in tables
-  write.table(data.subset@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
+  write.table(data.subset@meta.data$cell_types, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
   file.remove("tmp.tsv")
   write.table(data.subset@meta.data$dataset, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
@@ -82,23 +82,24 @@ transfer_clusters <- function(seuratObj, proj, plt, tissue_csv){
 get_expression <- function(seuratObj, proj, feature, tissue_csv){
 
   #Get tissue positions again
-  write.table(seuratObj@active.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
+  write.table(seuratObj@meta.data$cell_types, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   idents <- read.delim("tmp.tsv", header = FALSE)
   file.remove("tmp.tsv")
-  write.table(seuratObj@meta.data$orig.ident, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
+  write.table(seuratObj@meta.data$dataset, file="tmp.tsv", quote=FALSE, sep="\t", col.names = FALSE)
   orig <- read.delim("tmp.tsv", header = FALSE)
   file.remove("tmp.tsv")
 
   positions <- read.csv(tissue_csv, header = F)
   positions <- positions[positions$V2 == 1,]
 
-  idents["Origin"] = orig$V2
-  table <- idents[idents$Origin == proj,]
+  idents["project"] = orig$V2
+  table <- idents[idents$project == proj,]
   cluster.ordered <- table[order(table$V1),]
   pos.ordered <-positions[order(positions$V1),]
 
   #Extract the counts matrix from the Seurat object
-  tmp <- as.matrix(GetAssayData(object = seuratObj, slot = "counts"))
+  subs <- subset(x = spatial.combined, subset = dataset == proj)
+  tmp <- as.matrix(GetAssayData(object = subs, slot = "counts"))
   feature_count <- tmp[feature,]
   rotated <- as.data.frame(t(feature_count))
   rotated <- as.data.frame(t(rotated))
@@ -106,6 +107,7 @@ get_expression <- function(seuratObj, proj, feature, tissue_csv){
 
   ggplot(pos.ordered, aes(pos.ordered$V3, pos.ordered$V4)) +
     geom_point(aes(color = table$Expr), size = 2) +
-    scale_color_viridis(option = "inferno") + theme_bw()
+    scale_color_viridis(option = "inferno") + theme_bw() +ggtitle("MBP")
 }
+
 
